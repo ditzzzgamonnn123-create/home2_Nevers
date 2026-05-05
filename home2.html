@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Xeta | Kipas</title>
+    <meta name="description" content="Download Kipas Private Server latest version v2.118.12.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], tech: ['Rajdhani', 'sans-serif'] },
+                    colors: { kps: { main: '#05070a', accent: '#6366f1' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #05070a; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .glass { background: rgba(13, 17, 23, 0.75); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .ios-alert-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .ios-alert-overlay.active { opacity: 1; pointer-events: auto; }
+        .ios-alert { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); width: 285px; border-radius: 14px; text-align: center; color: #000; transform: scale(1.1); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; }
+        .ios-alert-overlay.active .ios-alert { transform: scale(1); }
+        .ios-btn-container { display: flex; border-top: 0.5px solid rgba(0,0,0,0.1); }
+        .ios-btn { flex: 1; padding: 14px; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+        .ios-btn-confirm { color: #007AFF; font-weight: 600; border-left: 0.5px solid rgba(0,0,0,0.1); }
+        .ios-btn-cancel { color: #FF3B30; }
+        .music-wave-card { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .wave-bar { width: 3px; background: #6366f1; border-radius: 50px; animation: wave 1s ease-in-out infinite; }
+        .paused .wave-bar { animation-play-state: paused; height: 3px !important; }
+        @keyframes wave { 0%, 100% { height: 4px; } 50% { height: 18px; } }
+        .bg-grid { position: fixed; inset: 0; background-image: radial-gradient(#1f2937 1.5px, transparent 1.5px); background-size: 30px 30px; opacity: 0.2; z-index: -1; }
+        .btn-active:active { transform: scale(0.96); opacity: 0.9; }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="bg-grid"></div>
+
+    <div id="ios-alert-box" class="ios-alert-overlay">
+        <div class="ios-alert shadow-2xl">
+            <div class="p-6">
+                <h3 id="alert-title" class="font-bold text-[17px]">Pemberitahuan</h3>
+                <p id="alert-msg" class="text-[13px] mt-2 leading-tight text-gray-700">Pesan.</p>
+            </div>
+            <div class="ios-btn-container">
+                <div id="alert-cancel" class="ios-btn ios-btn-cancel">Batal</div>
+                <div id="alert-confirm" class="ios-btn ios-btn-confirm">Lanjutkan</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop><source src="https://files.catbox.moe/kg9n30.m4a" type="audio/mpeg"></audio>
+
+    <nav class="fixed w-full z-50 top-0 glass border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://gangalink.vercel.app/i/ac97gfj3.jpg" class="h-9 w-9 rounded-xl shadow-lg border border-white/10">
+                <span class="font-tech font-bold text-xl tracking-tighter uppercase text-white">NEVERS CYBER</span>
+            </div>
+            <button onclick="triggerAction('https://whatsapp.com/channel/0029VbC48TL2ZjCjDG0NIS42', 'Saluran WhatsApp', 'Membuka saluran resmi WhatsApp?')" class="text-[10px] font-extrabold bg-indigo-600 px-4 py-2 rounded-full shadow-lg uppercase text-white btn-active">Saluran</button>
+        </div>
+    </nav>
+
+    <main class="pt-24 pb-28 px-6 max-w-lg mx-auto space-y-6">
+        <div class="relative group">
+            <video src="https://gangalink.vercel.app/i/gdepsjwm.mp4" class="w-full rounded-3xl shadow-2xl border border-white/10" autoplay loop muted playsinline></video>
+        </div>
+
+        <div class="flex justify-center gap-3">
+            <div class="glass px-5 py-2 rounded-2xl flex items-center gap-3">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Online</span>
+            </div>
+            <div class="glass px-5 py-2 rounded-2xl flex items-center gap-3">
+                <i class="fas fa-users text-[10px] text-indigo-400"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 download-count">0</span>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="glass rounded-[2rem] overflow-hidden">
+                <div class="p-6 bg-gradient-to-br from-indigo-950/20 to-transparent text-center">
+                    <p class="text-[10px] font-semibold text-indigo-400 uppercase tracking-[0.2em] mb-2">Ucapan Terima Kasih</p>
+                    <p class="text-sm text-gray-300 leading-relaxed px-2">
+                        Kami selaku developer mengucapkan terima kasih yang sebesar-besarnya atas dukungan dan kepercayaan yang telah kalian berikan.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-white/5">
+                        <h3 class="font-bold text-xl text-white tracking-widest font-tech">SALAM NEVERS CYBER</h3>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="triggerAction('menu1.html', 'Menu 1', 'Memulai masuk server?')" class="w-full flex items-center gap-5 bg-indigo-600 p-5 rounded-[2rem] shadow-xl btn-active transition text-left">
+                <div class="bg-white/10 p-3 rounded-2xl"><i class="fas fa-cloud-arrow-down text-xl text-white"></i></div>
+                <div>
+                    <p class="font-bold text-white text-base">Menu 1</p>
+                    <p class="text-[10px] text-indigo-200 font-bold uppercase tracking-wider">Menu file gacor</p>
+                </div>
+            </button>
+
+            <button onclick="triggerAction('menu2.html', 'Menu 2', 'Memulai masuk server?')" class="w-full flex items-center gap-5 bg-indigo-600 p-5 rounded-[2rem] shadow-xl btn-active transition text-left">
+                <div class="bg-white/10 p-3 rounded-2xl"><i class="fas fa-gears text-xl text-white"></i></div>
+                <div>
+                    <p class="font-bold text-white text-base">Menu 2</p>
+                    <p class="text-[10px] text-indigo-200 font-bold uppercase tracking-wider">Menu config keren</p>
+                </div>
+            </button>
+
+            <button onclick="triggerAction('https://web-ditzz-dev.vercel.app/', 'Menu Web', 'Buka menu web?')" class="w-full flex items-center gap-5 bg-indigo-600 p-5 rounded-[2rem] shadow-xl btn-active transition text-left">
+                <div class="bg-white/10 p-3 rounded-2xl"><i class="fas fa-globe text-xl text-white"></i></div>
+                <div>
+                    <p class="font-bold text-white text-base">Menu Web</p>
+                    <p class="text-[10px] text-indigo-200 font-bold uppercase tracking-wider">Akses fitur web</p>
+                </div>
+            </button>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div onclick="triggerAction('https://dash.unlockffbeta.com/', 'Jadwal Sholat', 'Buka jadwal sholat?')" class="glass p-5 rounded-3xl text-center cursor-pointer btn-active">
+                    <div class="text-2xl mb-2">🕌</div>
+                    <p class="text-[9px] font-bold uppercase tracking-widest text-indigo-300">Jadwal sholat</p>
+                </div>
+                <div onclick="triggerAction('https://unlockffbeta.com/', 'Al-Quran', 'Buka Al-Quran online?')" class="glass p-5 rounded-3xl text-center cursor-pointer btn-active">
+                    <div class="text-2xl mb-2">📖</div>
+                    <p class="text-[9px] font-bold uppercase tracking-widest text-indigo-300">Al-Quran</p>
+                </div>
+                <div onclick="triggerAction('https://dash.unlockffbeta.com/', 'Verif Beta', 'Buka verifikasi manual?')" class="glass p-5 rounded-3xl text-center cursor-pointer btn-active">
+                    <i class="fas fa-user-shield text-emerald-400 text-xl mb-2 block"></i>
+                    <p class="text-[9px] font-bold uppercase tracking-widest text-gray-400">Verif Beta</p>
+                </div>
+                <div onclick="triggerAction('https://ffkipas.my.id/verifyuid', 'Verif Kipas', 'Buka verifikasi manual?')" class="glass p-5 rounded-3xl text-center cursor-pointer btn-active">
+                    <i class="fas fa-id-badge text-emerald-400 text-xl mb-2 block"></i>
+                    <p class="text-[9px] font-bold uppercase tracking-widest text-gray-400">Verif Kipas</p>
+                </div>
+            </div>
+
+            <div onclick="triggerAction('https://www.mediafire.com/file/yw1a2zaicwc63sk/localconfig.json/file', 'Config OB53', 'Unduh localconfig Kipas?')" class="glass p-5 rounded-3xl flex items-center justify-between px-6 cursor-pointer btn-active border-dashed">
+                <div class="flex items-center gap-4">
+                    <i class="fas fa-file-code text-amber-400 text-lg"></i>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Localconfig Kipas OB53</span>
+                </div>
+                <i class="fas fa-download text-[12px] opacity-40"></i>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+                <button onclick="triggerAction('https://dash.unlockffbeta.com/', 'Dash Beta', 'Buka dashboard beta?')" class="glass p-4 rounded-2xl flex items-center justify-center gap-3 btn-active">
+                    <i class="fas fa-terminal text-indigo-400 text-xs"></i>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">Dashboard FF BETA</span>
+                </button>
+                <button onclick="triggerAction('https://ffkipas.my.id/panel/', 'Dash Kipas', 'Buka dashboard kipas?')" class="glass p-4 rounded-2xl flex items-center justify-center gap-3 btn-active">
+                    <i class="fas fa-server text-indigo-400 text-xs"></i>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">Dashboard FF KIPAS</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-indigo-900/10 border border-indigo-900/20 p-3 rounded-2xl overflow-hidden">
+            <marquee class="text-[9px] font-bold uppercase tracking-[0.2em] text-white/40" scrollamount="5">Aplikasi dibuat oleh Developer @Hmmodz @Ditzz_Glax7ty @Hanzy_file @Arr_kipas</marquee>
+        </div>
+    </main>
+
+    <div id="music-player" class="music-wave-card glass paused shadow-2xl">
+        <div class="text-right">
+            <p class="text-[8px] font-black uppercase text-indigo-400 tracking-widest leading-none mb-1">Audio</p>
+            <p id="music-status" class="text-[10px] font-bold text-white uppercase">OFF</p>
+        </div>
+        <div class="flex items-end gap-[3px] h-4">
+            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYQIPDIhvwhL3z8yuQcr32MDdqyUX1v1E",
+            authDomain: "aden-ob52.firebaseapp.com",
+            databaseURL: "https://aden-ob52-default-rtdb.firebaseio.com",
+            projectId: "aden-ob52",
+            appId: "1:962210534464:web:4a73e59ee3d07d1235bba5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const downloadRef = ref(db, 'downloadCount');
+
+        onValue(downloadRef, (snap) => {
+            const count = snap.val() || 0;
+            document.querySelectorAll('.download-count').forEach(el => { el.textContent = count.toLocaleString('id-ID'); });
+        });
+
+        const alertBox = document.getElementById('ios-alert-box');
+        const alertTitle = document.getElementById('alert-title');
+        const alertMsg = document.getElementById('alert-msg');
+        const btnCancel = document.getElementById('alert-cancel');
+        const btnConfirm = document.getElementById('alert-confirm');
+        let pendingUrl = "";
+
+        window.triggerAction = function(url, title, msg) {
+            pendingUrl = url;
+            alertTitle.innerText = title;
+            alertMsg.innerText = msg;
+            alertBox.classList.add('active');
+            return false; 
+        };
+
+        btnCancel.onclick = () => {
+            alertBox.classList.remove('active');
+            pendingUrl = "";
+        };
+
+        btnConfirm.onclick = () => {
+            alertBox.classList.remove('active');
+            if (pendingUrl && pendingUrl !== '#') {
+                window.open(pendingUrl, '_blank');
+                pendingUrl = "";
+            }
+        };
+
+        const player = document.getElementById('music-player');
+        const bgMusic = document.getElementById('bg-music');
+        const statusText = document.getElementById('music-status');
+
+        player.onclick = () => {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    player.classList.remove('paused');
+                    statusText.innerText = "ON";
+                }).catch(err => console.log("User interaction required"));
+            } else {
+                bgMusic.pause();
+                player.classList.add('paused');
+                statusText.innerText = "OFF";
+            }
+        };
+    </script>
+</body>
+</html>
